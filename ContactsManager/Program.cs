@@ -10,6 +10,7 @@ namespace ContactsManager
     class Program
     {
         static List<Contact> contacts = new List<Contact>();
+         
         //static List<int> listeInt = new List<int>();
         //static List<DateTime> listeDate = new List<DateTime>();
         //static List<bool> listeBool = new List<bool>();
@@ -17,7 +18,7 @@ namespace ContactsManager
 
         //static StreamWriter ecrire = new StreamWriter("contacts.txt");
         //static StreamReader file = new StreamReader(@"contacts.txt");
-        
+
         static void SaisierContact()
         {
             try
@@ -25,8 +26,7 @@ namespace ContactsManager
                 Contact c = new Contact();
 
                 PrintMenuAdd();
-
-
+              
                 c.Nom = SaisirChaineObligatoire("\tTapez le nom du contact, svp(Obligatoire):");
                 c.Prenom = SaisirChaineObligatoire("\tTapez le Prénom, svp:(Obligatoire):");
 
@@ -104,7 +104,8 @@ namespace ContactsManager
         static void AfficherMenu()
         {
             Console.Clear();
-            Console.WriteLine("\n\n"+new string('-', Console.WindowWidth));
+            char[] chars = { '█', '▓', '▒', '░' };
+            Console.WriteLine("\n\n"+new string(chars[3], Console.WindowWidth));
             Console.WriteLine(new string(' ', Console.WindowWidth/2)+"MENU");
             string aux_s = $"Vous avez {contacts.Count} contacts";
             Console.WriteLine(new string(' ', (Console.WindowWidth / 2)- aux_s.Length/2) + aux_s);
