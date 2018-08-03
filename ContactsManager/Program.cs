@@ -9,30 +9,79 @@ namespace ContactsManager
 {
     class Program
     {
-        static List<string> contacts = new List<string>();
-        static List<int> listeInt = new List<int>();
-        static List<DateTime> listeDate = new List<DateTime>();
-        static List<bool> listeBool = new List<bool>();
+        static List<Contact> contacts = new List<Contact>();
+        //static List<int> listeInt = new List<int>();
+        //static List<DateTime> listeDate = new List<DateTime>();
+        //static List<bool> listeBool = new List<bool>();
 
 
         //static StreamWriter ecrire = new StreamWriter("contacts.txt");
         //static StreamReader file = new StreamReader(@"contacts.txt");
+        
+        static void SaisierContact()
+        {
+            try
+            {
+                Contact c = new Contact();
+
+                PrintMenuAdd();
+
+
+                c.Nom = SaisirChaineObligatoire("\tTapez le nom du contact, svp(Obligatoire):");
+                c.Prenom = SaisirChaineObligatoire("\tTapez le Prénom, svp:(Obligatoire):");
+
+                Console.WriteLine("\tTapez le Email, svp: ");
+                c.Email = Console.ReadLine();
+                Console.WriteLine("\tTapez le Téléphone, svp:    ");
+                c.Telephone = Console.ReadLine();
+                Console.WriteLine("\tTapez le Date de naissance, svp:(jj/mm/aaaa)");
+            
+                c.DateDeNaissance = DateTime.Parse(Console.ReadLine());
+                contacts.Add(c);
+                VisualAdd();
+                Console.WriteLine("\tContact Ajouter!");
+                VisualNormal();
+                Console.ReadKey();
+            }
+            catch(Exception e)
+            {
+                VisualDanger();
+                Console.WriteLine($"\tProblème d'entrée de données! {e.Message}");
+                VisualNormal();
+                Console.ReadKey();
+            }            
+        }
+        static string SaisirChaineObligatoire(string message)
+        {
+            Console.WriteLine(message);
+            var saisie = Console.ReadLine();
+            while (string.IsNullOrEmpty(saisie))
+            {
+                PrintMenuAdd();
+                Console.WriteLine(message);
+                VisualDanger();
+                Console.WriteLine(new string(' ', Console.WindowWidth / 2) + "Champ requis. Recommence:");
+                VisualNormal();
+                saisie = Console.ReadLine();
+            }
+            return saisie;
+        }
 
         static void SaisierEntier()
         {
-            listeInt.Add(int.Parse(Console.ReadLine()));
+            //listeInt.Add(int.Parse(Console.ReadLine()));
         }
         static void SaisierBoolean()
         {
-            listeBool.Add(bool.Parse(Console.ReadLine()));
+            //listeBool.Add(bool.Parse(Console.ReadLine()));
         }
         static void SaisierDate()
         {
-            listeDate.Add(DateTime.Parse(Console.ReadLine()));
+            //listeDate.Add(DateTime.Parse(Console.ReadLine()));
         }
         static void SaisierString()
         {
-            contacts.Add(Console.ReadLine());
+            //contacts.Add(Console.ReadLine());
         }
         /// <summary>
         /// Methode pour gardes les donnez sur un file txt
@@ -55,27 +104,31 @@ namespace ContactsManager
         static void AfficherMenu()
         {
             Console.Clear();
-            Console.WriteLine("\n\n--------------------------------------");
-            Console.WriteLine("---              MENU              ---");
-            Console.WriteLine("        Vous avez {0} contacts     ", contacts.Count);
-            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("\n\n"+new string('-', Console.WindowWidth));
+            Console.WriteLine(new string(' ', Console.WindowWidth/2)+"MENU");
+            string aux_s = $"Vous avez {contacts.Count} contacts";
+            Console.WriteLine(new string(' ', (Console.WindowWidth / 2)- aux_s.Length/2) + aux_s);
+            Console.WriteLine(new string('-', Console.WindowWidth));
             Console.WriteLine("-- OP1 AJOUTER CONTACT  : TAPEZ [1] --");
             Console.WriteLine("-- OP2 LISTER CONTACTS  : TAPEZ [2] --");
             Console.WriteLine("-- OP3 SUPRIMER CONTACT : TAPEZ [3] --");
             Console.WriteLine("-- OP4 QUITTER          : TAPEZ [9] --");
         }
-        static void AjoutContact()
+        static void PrintMenuAdd()
         {
             Console.Clear();
-            VisualAdd();
-            Console.WriteLine("\n\n-------------------------------------");
-            Console.WriteLine("---          ADD CONTACT          ---");
-            Console.WriteLine("-------------------------------------");
             VisualNormal();
-            Console.WriteLine("    Tapez le nom du contact, svp:    ");
-            SaisierString();
-            Console.WriteLine("    Tapez le nombre, svp:    ");
-            SaisierEntier();
+            Console.WriteLine("\n\n" + new string('-', Console.WindowWidth));
+            Console.WriteLine(new string(' ', Console.WindowWidth / 2) + "ADD CONTACT" + new string(' ', Console.WindowWidth / 2));
+            Console.WriteLine("\n\n" + new string('-', Console.WindowWidth));
+        }
+        static void AjoutContact()
+        {
+            
+            
+            SaisierContact();
+            //SaisierString();
+            //SaisierEntier();
             //ecrire.WriteLine(valeur_contact);
             //ecrire.Close();
         }
@@ -93,16 +146,27 @@ namespace ContactsManager
             for (int i = 0; i <= contacts.Count - 1; i++)
             {
                 //Console.WriteLine("{0} - nom: {1,15} - nombre: {2,10}", i+1, contacts[i], listeInt[i]);
-                Console.WriteLine($"{i + 1} - nom: {contacts[i],15} - nombre: {listeInt[i],10}");
+                //Console.WriteLine($"{i + 1} - nom: {contacts[i],-15} - nombre: {listeInt[i],-10}");
+                Console.WriteLine($"{"ID",-3}{"NOM",-10}{"PRENOM",-10}{"EMAIL",-20}{"TELEPHONE",-12}{"DATE",-10}");
+                Console.WriteLine($"{i + 1,-3} {contacts[i].Nom,-10} {contacts[i].Prenom,-10}" +
+                                  $" {contacts[i].Email,-10} {contacts[i].Telephone,-12} " +
+                                  $" {contacts[i].DateDeNaissance.ToShortDateString(),-10}");
+                Console.WriteLine(new string('-', Console.WindowWidth));
             }
         }
         static void SuppressionContact()
         {
             string contacSupression;
             Console.Clear();
+            /*
             foreach (string c in contacts)
             {
                 Console.WriteLine(c);
+            }
+            */
+            foreach (Contact c in contacts)
+            {
+                Console.WriteLine($" Nom: {c.Nom,-10} - Prénom: {c.Prenom,-10}");
             }
             VisualDanger();
             Console.WriteLine("\n-------------------------------------");
@@ -111,6 +175,7 @@ namespace ContactsManager
             VisualNormal();
             Console.WriteLine("    Tapez le nom du contact, svp:    ");
             contacSupression = Console.ReadLine();
+            /*
             if (contacts.Contains(contacSupression))
             {
                 listeInt.RemoveAt(contacts.IndexOf(contacSupression));
@@ -121,7 +186,7 @@ namespace ContactsManager
                 Console.WriteLine("      Contac Inexistent      ");
                 Console.ReadKey();
             }
-
+            */
 
         }
         static void Quitter()
