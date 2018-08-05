@@ -212,7 +212,7 @@ namespace ContactsManager
         static void AfficherMenu(int op)
         {
             Console.Clear();
-            string[] menu = new string[4] {"AJOUTER CONTACT", "LISTER CONTACTS", "SUPRIMER CONTACT", "QUITTER" };
+            string[] menu = new string[4] { "ENREGISTREZ UN CONTACT", "LISTE CONTACTS", "SUPPRIMER CONTACT", "SORTIE" };
             //char[] chars = { '█', '▓', '▒', '░' };
            //Console.WriteLine("\n"+new string(chars[3], Console.WindowWidth));
             PrintMenu("MENU","Normal");
@@ -241,10 +241,10 @@ namespace ContactsManager
         static void ListeContact()
         {
             Console.Clear();
-            PrintMenu("LISTE CONTACT", "Lister");
-            Console.WriteLine(new string(' ', Console.WindowWidth/2) +"Vous avez {0} contacts\n", contacts.Count);
+            PrintMenu("LISTE DE CONTACTS", "Lister");
+            Console.WriteLine("\tVous avez {0} contacts\n", contacts.Count);
             
-            Console.WriteLine($"{"ID",-3}{"NOM",-10}{"PRENOM",-12}{"EMAIL",-30}{"TELEPHONE",-12}{"DATE",-10}");
+            Console.WriteLine($"{"ID",-3}{"NOM",-10}{"PRENOM",-12}{"EMAIL",-30}{"TELEPHONE",-12}{"DATE",-10}\n");
             for (int i = 0; i <= contacts.Count - 1; i++)
             {
                 //Console.WriteLine("{0} - nom: {1,15} - nombre: {2,10}", i+1, contacts[i], listeInt[i]);
@@ -268,12 +268,12 @@ namespace ContactsManager
             }
             */
            
-            PrintMenu("SUPRESSION CONTACT", "Danger");
+            PrintMenu("SUPPRIMER CONTACT", "Danger");
             foreach (Contact c in contacts)
             {
                 Console.WriteLine($" Nom: {c.Nom,-10} / {c.Prenom}");
             }
-            Console.WriteLine("\n\t-Tapez le nom du contact, svp:    ");
+            Console.WriteLine("\n\t-Quel contact souhaitez-vous supprimer?");
             contacSupression = Console.ReadLine();
             index_Contact_Supression = contacts.FindIndex(x => x.Nom==contacSupression);
             if (index_Contact_Supression < 0)
@@ -293,7 +293,7 @@ namespace ContactsManager
                     Console.WriteLine($" Nom: {c.Nom,-10} / {c.Prenom}");
                 }
                 Visual("Add");
-                Console.WriteLine("EXCLUSSION AVEC SUCCES!");
+                Console.WriteLine("SUPPRIMÉ AVEC SUCCÈS!");
                 Visual("Normal");
                 Console.ReadKey();
             }
@@ -401,7 +401,7 @@ namespace ContactsManager
                         EcrireFichier();
                         break;
                     default:
-                        Console.WriteLine("OP INVALIDE");
+                        Console.WriteLine("OP INVALIDE");//DESUSO
                         Console.ReadKey();
                         break;
 
