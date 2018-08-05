@@ -269,9 +269,10 @@ namespace ContactsManager
             */
            
             PrintMenu("SUPPRIMER CONTACT", "Danger");
+            Console.WriteLine($"{"NOM",-10} / {"PRENOM",-12}\n");
             foreach (Contact c in contacts)
             {
-                Console.WriteLine($" Nom: {c.Nom,-10} / {c.Prenom}");
+                Console.WriteLine($"{c.Nom,-10} / {c.Prenom,-12}");
             }
             Console.WriteLine("\n\t-Quel contact souhaitez-vous supprimer?");
             contacSupression = Console.ReadLine();
