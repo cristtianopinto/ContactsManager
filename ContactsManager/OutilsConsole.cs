@@ -5,7 +5,7 @@ namespace ContactsManager
 {
     public static class OutilsConsole
     {
-        private static bool continu_Thread = true;
+        private static bool continu_Thread = true;//pas utilisé
 
         public static int SaisirEntier(string Message,string MessageOblige)
         {
@@ -22,6 +22,7 @@ namespace ContactsManager
         {
             DateTime date_valuer = new DateTime();
             booldata = DateTime.TryParse(chaine, out date_valuer);
+            
             return date_valuer;
         }
         public static DateTime SaisierData()
@@ -36,7 +37,6 @@ namespace ContactsManager
             return date;
 
         }
-
         public static string SaisirChaineObligatoire(string Message)
         {
             Console.WriteLine(Message);
@@ -59,7 +59,6 @@ namespace ContactsManager
             }
             return saisie;
         }
-
         private static void AttendEsc()
         {
             if (Console.ReadKey().Key == ConsoleKey.Escape)
@@ -70,7 +69,6 @@ namespace ContactsManager
             }
 
         }
-
     }
 }
 
