@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsManager", "Contacts
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsManager.Business", "ContactsManager.Business\ContactsManager.Business.csproj", "{36B380A1-540B-4AC4-AB71-ED964FDD90EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsManager.DAL", "ContactsManager.DAL\ContactsManager.DAL.csproj", "{14BF90B0-C6CC-42DD-BFE5-AE1DB1D503EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{36B380A1-540B-4AC4-AB71-ED964FDD90EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36B380A1-540B-4AC4-AB71-ED964FDD90EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36B380A1-540B-4AC4-AB71-ED964FDD90EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14BF90B0-C6CC-42DD-BFE5-AE1DB1D503EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14BF90B0-C6CC-42DD-BFE5-AE1DB1D503EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14BF90B0-C6CC-42DD-BFE5-AE1DB1D503EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14BF90B0-C6CC-42DD-BFE5-AE1DB1D503EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

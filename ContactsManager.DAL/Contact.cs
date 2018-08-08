@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ContactsManager
+namespace ContactsManager.DAL
 {
     public class Contact
     {

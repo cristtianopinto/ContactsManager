@@ -5,32 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using ContactsManager.DAL;
+using System.Threading;
 
 namespace ContactsManager
-{
-    /*
-     teste = (teste ?? string.empty)
-         
-         */
-    public class PeutEtreNull<T>
-    {
-        public T Valeur { get; set; }
-        public bool PossedeValeur { get; set; }
-
-    }
-        
+{        
     class Program
     {       
-        const string DirFile = "contacts.txt";
-        static List<Contact> contacts = new List<Contact>();//Type générique - voir Nullable<T>           
+        
+        static List<Contact> contacts = new List<Contact>();//Type générique - voir Nullable<T>    
+        
         static void SaisierContact()
         {
             //Type génériques(page 160):
-            Nullable<DateTime> date = null;            
+            //Nullable<DateTime> date = null;            
             try
             {
+                //**//
                 Contact c = new Contact();
-                
+                //**//
                 PrintMenu("ADD CONTACT ","Add");                
                 c.Nom = OutilsConsole.SaisirChaineObligatoire("\t- Tapez le nom du contact, svp(Obligatoire):");                
                 c.Prenom = OutilsConsole.SaisirChaineObligatoire("\t- Tapez le Prénom, svp:(Obligatoire):");
@@ -53,81 +46,7 @@ namespace ContactsManager
                 Visual("Normal");
                 Console.ReadKey();
             }            
-        }                   
-        /// <summary>
-        /// Methode pour gardes les donnez sur un file txt
-        /// </summary>
-        static void EcrireFichier()
-        {
-            /*Aprouche professeur
-             * System.IO
-             * System.Text
-             * Class StringBuilder
-             * append()
-             * File.WriteAllText(chemin du fichier,contenu)
-             * */
-            int i = 0;
-            StreamWriter fileWriter = new StreamWriter(DirFile);
-            foreach(Contact c in contacts)
-            {
-                
-                fileWriter.WriteLine($"Contact {i}:");
-                fileWriter.WriteLine("nom-" + c.Nom);
-                fileWriter.WriteLine("prenom-" + c.Prenom);
-                fileWriter.WriteLine("email-" + c.Email);
-                fileWriter.WriteLine("tele-" + c.Telephone);
-                fileWriter.WriteLine("date-"+c.DateDeNaissance);
-                fileWriter.WriteLine("****************");
-                i++;
-            }
-            fileWriter.Close();
-            
-        }
-        /// <summary>
-        /// Methode pour gardes les donnez sur un fichier *.txt
-        /// </summary>
-        static void RecupererFichier()
-        {
-            /*Aprouche professeur
-             * File.ReadAllText(chemin du fichier)
-             * */
-            StreamReader fileReader = new StreamReader(DirFile);            
-            string line;
-            Contact c = new Contact();
-            bool convertiondate = true;
-            while((line = fileReader.ReadLine())!= null)
-            {
-                
-                if (line.Contains("-"))
-                {
-                    string[] iniLine = line.Split('-');
-                    switch (iniLine[0])
-                    {
-                        case "nom":                            
-                            c.Nom = iniLine[1];
-                            break;
-                        case "prenom":
-                            c.Prenom = iniLine[1];
-                            break;
-                        case "email":
-                            c.Email= iniLine[1];
-                            break;
-                        case "tele":
-                            c.Telephone = iniLine[1];
-                            break;
-                        case "date":
-                            c.DateDeNaissance = OutilsConsole.ConvertirData(iniLine[1], out convertiondate);
-                            break;
-                        
-                    }
-                }else if (line.Contains("***"))
-                {
-                    contacts.Add(c);
-                    c = new Contact();//VER O QUANTO É CORRETO FAZER ISSO
-                }            
-            }            
-            fileReader.Close();
-        }
+        }                          
         /// <summary>
         /// Methode qui permet de afficher des opction selectione ou pas selectione
         /// </summary>
@@ -142,7 +61,7 @@ namespace ContactsManager
                 if (i == choix)
                 {
                     Visual("Add");
-                    Console.WriteLine("\t║  »" + Opctions[i]+ "");                 
+                   Console.WriteLine("\t║  »" + Opctions[i]+ "");                 
                     Visual("Normal");
                 }
                 else
@@ -160,24 +79,26 @@ namespace ContactsManager
         }
         static void PrintSingleContact(Contact c,int i)
         {
-            Console.WriteLine($"{i + 1,-3}{c.Nom,-25}{c.Prenom,-25}" +
-                                  $"{c.Email,-40}{c.Telephone,-30}" +
-                                  $"{c.DateDeNaissance.ToShortDateString(),-30}");
+            
+            Console.WriteLine($"{i + 1,-3}{c.Nom,-26}{c.Prenom,-26}" +
+                                  $"{c.Email,-40}{c.Telephone,-26}" +
+                                  $"{c.DateDeNaissance.ToShortDateString(),-26}");
         }
         static void PrintSingleContact(Contact c)
         {
-            Console.WriteLine($"{"-",-3}{c.Nom,-25}{c.Prenom,-25}" +
-                                  $"{c.Email,-40}{c.Telephone,-30}" +
-                                  $"{c.DateDeNaissance.ToShortDateString(),-30}");
+            Console.WriteLine($"{"-",-3}{c.Nom,-26}{c.Prenom,-26}" +
+                                  $"{c.Email,-40}{c.Telephone,-26}" +
+                                  $"{c.DateDeNaissance.ToShortDateString(),-26}");
         }
         static void ListeContact()
         {
             Console.Clear();
             int consoleWidth = Console.WindowWidth;
             PrintMenu("LISTE DES CONTACTS", "Lister");
-            Console.WriteLine("\t[Vous avez {0} contacts]\n", contacts.Count);
-            
-            Console.WriteLine($"{"ID",-3 }{"NOM",-25}{"PRENOM",-25}{"EMAIL",-40}{"TELEPHONE",-30}{"DATE",-30}\n");
+            Console.WriteLine("\t[Vous avez {0} contacts]", contacts.Count);
+            Visual("EnTete");
+            Console.WriteLine($"{"ID",-3 }{"NOM",-26}{"PRENOM",-26}{"EMAIL",-40}{"TELEPHONE",-26}{"DATE",-26}\n");
+            Visual("Normal");
             for (int i = 0; i <= contacts.Count - 1; i++)
             {
                 PrintSingleContact(contacts[i], i);
@@ -202,8 +123,8 @@ namespace ContactsManager
             {
                 
                 Console.WriteLine("Contact pas trouver!");
-                
-                Console.ReadKey();
+                Thread.Sleep(1000);
+
             }
             else
             {
@@ -217,7 +138,7 @@ namespace ContactsManager
                 Visual("Add");
                 Console.WriteLine("SUPPRIMÉ AVEC SUCCÈS!");
                 Visual("Normal");
-                Console.ReadKey();
+                Thread.Sleep(1000);
             }            
         }
         static void TrierContacts()
@@ -251,7 +172,7 @@ namespace ContactsManager
             Console.Clear();
             PrintMenu("FILTRER CONTACTS", "Lister");
             //refaire
-            Console.WriteLine("\n\t-Rechercher dans Nom et Prenom?");
+            Console.WriteLine("\n\t-Rechercher dans Nom et Prenom:");
             Console.CursorVisible = true;
             string recherche = Console.ReadLine();            
             RequeteContactNomPrenom(recherche);
@@ -277,6 +198,10 @@ namespace ContactsManager
                     Console.BackgroundColor = ConsoleColor.DarkGreen;
                     Console.ForegroundColor = ConsoleColor.White;
                     break;
+                case "EnTete":
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    break;
             };           
         }
         static void RequeteContactNomPrenom(string entre_requete)
@@ -285,7 +210,9 @@ namespace ContactsManager
                           where contact.Nom.ToUpper().StartsWith(entre_requete.ToUpper()) ||
                                 contact.Prenom.ToUpper().StartsWith(entre_requete.ToUpper())
                           select contact;
-            Console.WriteLine($"{"ID",-3 }{"NOM",-25}{"PRENOM",-25}{"EMAIL",-40}{"TELEPHONE",-30}{"DATE",-30}\n");
+            Visual("EnTete");
+            Console.WriteLine($"{"ID",-3 }{"NOM",-26}{"PRENOM",-26}{"EMAIL",-40}{"TELEPHONE",-26}{"DATE",-26}\n");
+            Visual("Normal");
             foreach (var c in requete)
             {                
                 PrintSingleContact(c);
@@ -296,7 +223,11 @@ namespace ContactsManager
             var requete = from contact in contacts
                           orderby contact.Nom ascending
                           select contact;
-            Console.WriteLine($"{"ID",-3 }{"NOM",-25}{"PRENOM",-25}{"EMAIL",-40}{"TELEPHONE",-30}{"DATE",-30}\n");
+            Console.Clear();
+            PrintMenu("TRIER CONTACTS", "Lister");
+            Visual("EnTete");
+            Console.WriteLine($"{"ID",-3 }{"NOM",-26}{"PRENOM",-26}{"EMAIL",-40}{"TELEPHONE",-26}{"DATE",-26}\n");
+            Visual("Normal");
             foreach (var c in requete)
             {                
                 PrintSingleContact(c);
@@ -307,7 +238,11 @@ namespace ContactsManager
             var requete = from contact in contacts
                           orderby contact.Prenom ascending
                           select contact;
-            Console.WriteLine($"{"ID",-3 }{"NOM",-25}{"PRENOM",-25}{"EMAIL",-40}{"TELEPHONE",-30}{"DATE",-30}\n");
+            Console.Clear();
+            PrintMenu("TRIER CONTACTS", "Lister");
+            Visual("EnTete");
+            Console.WriteLine($"{"ID",-3 }{"NOM",-26}{"PRENOM",-26}{"EMAIL",-40}{"TELEPHONE",-26}{"DATE",-26}\n");
+            Visual("Normal");
             foreach (var c in requete)
             {                
                 PrintSingleContact(c);
@@ -320,12 +255,9 @@ namespace ContactsManager
         static void AfficherMenu(int op, List<string> list_menu, string tittle, string visual)
         {
             Console.Clear();
-            //List<string> menu = new List<string> { "ENREGISTREZ UN CONTACT", "LISTE CONTACTS", "SUPPRIMER CONTACT", "TRIER CONTACTS", "FILTRER CONTACTS", "SORTIE" };
-
             PrintMenu(tittle, visual);
             Console.WriteLine("\t[Vous avez {0} contacts]\n\n", contacts.Count);
             AfficherOpction(list_menu, op);
-
         }
         public static void PrintMenu(string Tittle, string Type)
         {
@@ -334,7 +266,7 @@ namespace ContactsManager
             Visual(Type);
             Console.Write(new string(chars[2], Console.WindowWidth));
             Console.Write(new string('-', Console.WindowWidth));
-            Console.Write(new string(' ', Console.WindowWidth / 2 - Tittle.Length / 2) + Tittle + new string(' ', Console.WindowWidth / 2 - Tittle.Length / 2));
+            Console.Write(new string(' ', Console.WindowWidth / 2 - Tittle.Length / 2) + Tittle + new string(' ', Console.WindowWidth / 2+1 - Tittle.Length / 2));
             Console.Write(new string('-', Console.WindowWidth));
             Console.Write(new string(chars[3], Console.WindowWidth));
             Visual("Normal");
@@ -368,14 +300,15 @@ namespace ContactsManager
         }
         static void Quitter()
         {
-            EcrireFichier();
+            DonneesContact.EcrireFichier(contacts);
             Environment.Exit(0);
         }
         static void LancerApplication()
         {
             Console.Title = "AGENDA";
-            Console.SetWindowPosition(0, 0);
-            RecupererFichier();
+           // Console.SetWindowPosition(,);
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+            DonneesContact.RecupererFichier(contacts);
             Visual("Normal");
         }
         static void Main(string[] args)

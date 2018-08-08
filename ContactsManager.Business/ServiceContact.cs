@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ContactsManager.Business
 {
-    public class Class1
+    public class ServiceContact
     {
+        public static void CreeContact()
+        {
+
+        }
     }
 }

@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F24563EE-EED3-4873-8C4D-5C0D184FCBAF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ContactsManager</RootNamespace>
-    <AssemblyName>ContactsManager</AssemblyName>
+    <ProjectGuid>{14BF90B0-C6CC-42DD-BFE5-AE1DB1D503EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContactsManager.DAL</RootNamespace>
+    <AssemblyName>ContactsManager.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,22 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OutilsConsole.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Contact.cs" />
+    <Compile Include="DonneesContact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ContactsManager.Business\ContactsManager.Business.csproj">
-      <Project>{36b380a1-540b-4ac4-ab71-ed964fdd90ea}</Project>
-      <Name>ContactsManager.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContactsManager.DAL\ContactsManager.DAL.csproj">
-      <Project>{14bf90b0-c6cc-42dd-bfe5-ae1db1d503ec}</Project>
-      <Name>ContactsManager.DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
