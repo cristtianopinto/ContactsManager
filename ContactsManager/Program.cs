@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using ContactsManager.DAL;
-using System.Threading;
 
 namespace ContactsManager
 {        
@@ -123,8 +122,8 @@ namespace ContactsManager
             {
                 
                 Console.WriteLine("Contact pas trouver!");
-                Thread.Sleep(1000);
-
+                
+                Console.ReadKey();
             }
             else
             {
@@ -138,7 +137,7 @@ namespace ContactsManager
                 Visual("Add");
                 Console.WriteLine("SUPPRIMÉ AVEC SUCCÈS!");
                 Visual("Normal");
-                Thread.Sleep(1000);
+                Console.ReadKey();
             }            
         }
         static void TrierContacts()
