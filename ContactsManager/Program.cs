@@ -6,15 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using ContactsManager.DAL;
+using ContactsManager.Business;
 
 namespace ContactsManager
 {        
     class Program
     {       
         
-        static List<Contact> contacts = new List<Contact>();//Type générique - voir Nullable<T>    
-        
-        static void SaisierContact()
+        static List<Contact> contacts = new List<Contact>();//Type générique - voir Nullable<T> TEMOS QUE MUDAR ISSO!!!   
+		static IServiceContact service = new ServiceContact();//NOVA ABORDAGEM
+
+		static void SaisierContact()
         {
             //Type génériques(page 160):
             //Nullable<DateTime> date = null;            

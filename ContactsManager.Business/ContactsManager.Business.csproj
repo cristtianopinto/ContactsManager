@@ -40,8 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IServiceContact.cs" />
     <Compile Include="ServiceContact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactsManager.DAL\ContactsManager.DAL.csproj">
+      <Project>{14bf90b0-c6cc-42dd-bfe5-ae1db1d503ec}</Project>
+      <Name>ContactsManager.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
